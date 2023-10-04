@@ -6,6 +6,7 @@ namespace Lesson1
     public partial class Form1 : Form
     {
         List<string> Progs;
+        string sortParameter = null;
         public Form1()
         {
             Progs = new List<string>()
@@ -15,6 +16,7 @@ namespace Lesson1
                 "mspaint.exe"
             };
             InitializeComponent();
+            comboBoxSort.SelectedIndex = 0;
             myProcess.StartInfo = new System.Diagnostics.ProcessStartInfo();
             updateProcesses();
             updatePrograms();
@@ -28,7 +30,29 @@ namespace Lesson1
             listBoxTimeSpan.Items.Clear();
             listBoxThreadsNum.Items.Clear();
 
-            var processesList = Process.GetProcesses();
+            var processesList = Process.GetProcesses().ToList();
+            if (sortParameter != null)
+            {
+                switch (sortParameter)
+                {
+                    case "Name":
+                        processesList.Sort(procsNameComparer);
+                        break;
+                    case "Id":
+                        processesList.Sort(procsIdComparer);
+                        break;
+                    case "StartTime":
+                        processesList.Sort(procsStartTimeComparer);
+                        break;
+                    case "TimeSpan":
+                        processesList.Sort(procsTimeSpanComparer);
+                        break;
+                    case "Threads":
+                        processesList.Sort(procsThreadsComparer);
+                        break;
+
+                }
+            }
             var processes = processesList.DistinctBy(proc => proc.ProcessName).ToDictionary(proc => proc.ProcessName);
 
             foreach (var process in processes)
@@ -65,9 +89,98 @@ namespace Lesson1
             }
         }
 
-        private int procsComparer(Process pr1, Process pr2)
+        private int procsNameComparer(Process pr1, Process pr2)
         {
             return string.Compare(pr1.ProcessName, pr2.ProcessName);
+        }
+
+        private int procsIdComparer(Process pr1, Process pr2)
+        {
+            if (pr1.Id > pr2.Id)
+            {
+                return 1;
+            }
+            else if (pr1.Id < pr2.Id)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        //needed optimization
+        private int procsStartTimeComparer(Process pr1, Process pr2)
+        {
+            DateTime t1, t2;
+            bool hasFirst = true, hasSecond = true;
+            try
+            {
+                t1 = pr1.StartTime;
+            }
+            catch
+            {
+                t1 = new DateTime();
+                hasFirst = false;
+            }
+            try
+            {
+                t2 = pr2.StartTime;
+            }
+            catch
+            {
+                t2 = new DateTime();
+                hasSecond = false;
+            }
+            if (!hasSecond && !hasFirst)
+                return 0;
+            if (!hasSecond)
+                return 1;
+            if (!hasFirst)
+                return -1;
+            return DateTime.Compare(t1, t2);
+        }
+
+        //needed optimization
+        private int procsTimeSpanComparer(Process pr1, Process pr2)
+        {
+            TimeSpan t1, t2;
+            bool hasFirst = true, hasSecond = true;
+            try
+            {
+                t1 = pr1.UserProcessorTime;
+            }
+            catch
+            {
+                t1 = new TimeSpan();
+                hasFirst = false;
+            }
+            try
+            {
+                t2 = pr2.UserProcessorTime;
+            }
+            catch
+            {
+                t2 = new TimeSpan();
+                hasSecond = false;
+            }
+            if (!hasSecond && !hasFirst)
+                return 0;
+            if (!hasSecond)
+                return 1;
+            if (!hasFirst)
+                return -1;
+            return TimeSpan.Compare(t1, t2);
+        }
+        private int procsThreadsComparer(Process pr1, Process pr2)
+        {
+            if (pr1.Threads.Count > pr2.Threads.Count)
+            {
+                return 1;
+            }
+            else if (pr1.Threads.Count < pr2.Threads.Count)
+            {
+                return -1;
+            }
+            return 0;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -143,6 +256,16 @@ namespace Lesson1
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            updateProcesses();
+        }
+
+        private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sortParameter = comboBoxSort.SelectedItem.ToString();
         }
     }
 }

@@ -40,11 +40,18 @@
             listBoxStartTime = new ListBox();
             listBoxTimeSpan = new ListBox();
             listBoxThreadsNum = new ListBox();
+            btnUpdate = new Button();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            comboBoxSort = new ComboBox();
+            label7 = new Label();
             SuspendLayout();
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(1073, 219);
+            btnStart.Location = new Point(1073, 116);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(94, 29);
             btnStart.TabIndex = 0;
@@ -54,7 +61,7 @@
             // 
             // btnStop
             // 
-            btnStop.Location = new Point(1073, 400);
+            btnStop.Location = new Point(1073, 197);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(94, 29);
             btnStop.TabIndex = 1;
@@ -76,7 +83,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(81, 9);
+            label1.Location = new Point(81, 30);
             label1.Name = "label1";
             label1.Size = new Size(75, 20);
             label1.TabIndex = 2;
@@ -85,7 +92,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(331, 9);
+            label2.Location = new Point(350, 30);
             label2.Name = "label2";
             label2.Size = new Size(75, 20);
             label2.TabIndex = 3;
@@ -109,6 +116,7 @@
             listBoxProcesses.Name = "listBoxProcesses";
             listBoxProcesses.Size = new Size(207, 384);
             listBoxProcesses.TabIndex = 5;
+            listBoxProcesses.Tag = "Name";
             // 
             // btnAddProg
             // 
@@ -128,6 +136,7 @@
             listBoxId.Name = "listBoxId";
             listBoxId.Size = new Size(69, 384);
             listBoxId.TabIndex = 7;
+            listBoxId.Tag = "Id";
             // 
             // listBoxStartTime
             // 
@@ -137,6 +146,7 @@
             listBoxStartTime.Name = "listBoxStartTime";
             listBoxStartTime.Size = new Size(149, 384);
             listBoxStartTime.TabIndex = 7;
+            listBoxStartTime.Tag = "StartTime";
             // 
             // listBoxTimeSpan
             // 
@@ -146,6 +156,7 @@
             listBoxTimeSpan.Name = "listBoxTimeSpan";
             listBoxTimeSpan.Size = new Size(158, 384);
             listBoxTimeSpan.TabIndex = 7;
+            listBoxTimeSpan.Tag = "TimeSpan";
             // 
             // listBoxThreadsNum
             // 
@@ -155,12 +166,86 @@
             listBoxThreadsNum.Name = "listBoxThreadsNum";
             listBoxThreadsNum.Size = new Size(102, 384);
             listBoxThreadsNum.TabIndex = 7;
+            listBoxThreadsNum.Tag = "Threads";
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(1073, 408);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(94, 29);
+            btnUpdate.TabIndex = 8;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(519, 30);
+            label3.Name = "label3";
+            label3.Size = new Size(25, 20);
+            label3.TabIndex = 9;
+            label3.Text = "Id:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(602, 30);
+            label4.Name = "label4";
+            label4.Size = new Size(77, 20);
+            label4.TabIndex = 10;
+            label4.Text = "Start time:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(763, 30);
+            label5.Name = "label5";
+            label5.Size = new Size(80, 20);
+            label5.TabIndex = 11;
+            label5.Text = "Time span:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(895, 30);
+            label6.Name = "label6";
+            label6.Size = new Size(97, 20);
+            label6.TabIndex = 12;
+            label6.Text = "Threads num:";
+            // 
+            // comboBoxSort
+            // 
+            comboBoxSort.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSort.FormattingEnabled = true;
+            comboBoxSort.Items.AddRange(new object[] { "Name", "Id", "StartTime", "TimeSpan", "Threads" });
+            comboBoxSort.Location = new Point(1044, 354);
+            comboBoxSort.Name = "comboBoxSort";
+            comboBoxSort.Size = new Size(151, 28);
+            comboBoxSort.TabIndex = 13;
+            comboBoxSort.SelectedIndexChanged += comboBoxSort_SelectedIndexChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(1066, 331);
+            label7.Name = "label7";
+            label7.Size = new Size(112, 20);
+            label7.TabIndex = 14;
+            label7.Text = "Sort parameter:";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1518, 450);
+            ClientSize = new Size(1237, 450);
+            Controls.Add(label7);
+            Controls.Add(comboBoxSort);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(btnUpdate);
             Controls.Add(listBoxThreadsNum);
             Controls.Add(listBoxTimeSpan);
             Controls.Add(listBoxStartTime);
@@ -193,5 +278,12 @@
         private ListBox listBoxTimeSpan;
         private ListBox listBoxStartTime;
         private ListBox listBoxId;
+        private Button btnUpdate;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private ComboBox comboBoxSort;
+        private Label label7;
     }
 }
