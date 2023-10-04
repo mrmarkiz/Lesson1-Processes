@@ -36,11 +36,15 @@
             listBoxPrograms = new ListBox();
             listBoxProcesses = new ListBox();
             btnAddProg = new Button();
+            listBoxId = new ListBox();
+            listBoxStartTime = new ListBox();
+            listBoxTimeSpan = new ListBox();
+            listBoxThreadsNum = new ListBox();
             SuspendLayout();
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(553, 226);
+            btnStart.Location = new Point(1073, 219);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(94, 29);
             btnStart.TabIndex = 0;
@@ -50,7 +54,7 @@
             // 
             // btnStop
             // 
-            btnStop.Location = new Point(553, 407);
+            btnStop.Location = new Point(1073, 400);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(94, 29);
             btnStop.TabIndex = 1;
@@ -81,7 +85,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(365, 9);
+            label2.Location = new Point(331, 9);
             label2.Name = "label2";
             label2.Size = new Size(75, 20);
             label2.TabIndex = 3;
@@ -99,15 +103,16 @@
             // listBoxProcesses
             // 
             listBoxProcesses.FormattingEnabled = true;
+            listBoxProcesses.HorizontalScrollbar = true;
             listBoxProcesses.ItemHeight = 20;
             listBoxProcesses.Location = new Point(284, 53);
             listBoxProcesses.Name = "listBoxProcesses";
-            listBoxProcesses.Size = new Size(231, 384);
+            listBoxProcesses.Size = new Size(207, 384);
             listBoxProcesses.TabIndex = 5;
             // 
             // btnAddProg
             // 
-            btnAddProg.Location = new Point(553, 52);
+            btnAddProg.Location = new Point(1073, 45);
             btnAddProg.Name = "btnAddProg";
             btnAddProg.Size = new Size(94, 29);
             btnAddProg.TabIndex = 6;
@@ -115,11 +120,51 @@
             btnAddProg.UseVisualStyleBackColor = true;
             btnAddProg.Click += btnAddProg_Click;
             // 
+            // listBoxId
+            // 
+            listBoxId.FormattingEnabled = true;
+            listBoxId.ItemHeight = 20;
+            listBoxId.Location = new Point(497, 53);
+            listBoxId.Name = "listBoxId";
+            listBoxId.Size = new Size(69, 384);
+            listBoxId.TabIndex = 7;
+            // 
+            // listBoxStartTime
+            // 
+            listBoxStartTime.FormattingEnabled = true;
+            listBoxStartTime.ItemHeight = 20;
+            listBoxStartTime.Location = new Point(572, 53);
+            listBoxStartTime.Name = "listBoxStartTime";
+            listBoxStartTime.Size = new Size(149, 384);
+            listBoxStartTime.TabIndex = 7;
+            // 
+            // listBoxTimeSpan
+            // 
+            listBoxTimeSpan.FormattingEnabled = true;
+            listBoxTimeSpan.ItemHeight = 20;
+            listBoxTimeSpan.Location = new Point(727, 53);
+            listBoxTimeSpan.Name = "listBoxTimeSpan";
+            listBoxTimeSpan.Size = new Size(158, 384);
+            listBoxTimeSpan.TabIndex = 7;
+            // 
+            // listBoxThreadsNum
+            // 
+            listBoxThreadsNum.FormattingEnabled = true;
+            listBoxThreadsNum.ItemHeight = 20;
+            listBoxThreadsNum.Location = new Point(891, 53);
+            listBoxThreadsNum.Name = "listBoxThreadsNum";
+            listBoxThreadsNum.Size = new Size(102, 384);
+            listBoxThreadsNum.TabIndex = 7;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(682, 450);
+            ClientSize = new Size(1518, 450);
+            Controls.Add(listBoxThreadsNum);
+            Controls.Add(listBoxTimeSpan);
+            Controls.Add(listBoxStartTime);
+            Controls.Add(listBoxId);
             Controls.Add(btnAddProg);
             Controls.Add(listBoxProcesses);
             Controls.Add(listBoxPrograms);
@@ -144,5 +189,9 @@
         private ListBox listBoxPrograms;
         private Label label2;
         private Label label1;
+        private ListBox listBoxThreadsNum;
+        private ListBox listBoxTimeSpan;
+        private ListBox listBoxStartTime;
+        private ListBox listBoxId;
     }
 }

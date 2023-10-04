@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 
 namespace Lesson1
 {
@@ -22,11 +23,45 @@ namespace Lesson1
         private void updateProcesses()
         {
             listBoxProcesses.Items.Clear();
-            var processes = Process.GetProcesses().ToList();
-            processes.Sort(procsComparer);
+            listBoxId.Items.Clear();
+            listBoxStartTime.Items.Clear();
+            listBoxTimeSpan.Items.Clear();
+            listBoxThreadsNum.Items.Clear();
+
+            var processesList = Process.GetProcesses();
+            var processes = processesList.DistinctBy(proc => proc.ProcessName).ToDictionary(proc => proc.ProcessName);
+
             foreach (var process in processes)
             {
-                listBoxProcesses.Items.Add(process.ProcessName);
+                int n = processesList.Count(proc => proc.ProcessName == process.Value.ProcessName);
+                if (n > 1)
+                {
+                    listBoxProcesses.Items.Add($"{process.Value.ProcessName}({n})");
+                }
+                else
+                {
+                    listBoxProcesses.Items.Add(process.Value.ProcessName);
+
+                    listBoxId.Items.Add(process.Value.Id);
+                    try
+                    {
+                        listBoxStartTime.Items.Add(process.Value.StartTime);
+                    }
+                    catch
+                    {
+                        listBoxStartTime.Items.Add("Unkonwn");
+                    }
+                    try
+                    {
+                        listBoxTimeSpan.Items.Add(process.Value.UserProcessorTime);
+                    }
+                    catch
+                    {
+                        listBoxTimeSpan.Items.Add("Unknown");
+                    }
+                    listBoxThreadsNum.Items.Add(process.Value.Threads.Count);
+                }
+
             }
         }
 
@@ -61,7 +96,15 @@ namespace Lesson1
             {
                 try
                 {
-                    string processName = listBoxProcesses.SelectedItem.ToString();
+                    string processName;
+                    if (listBoxProcesses.SelectedItem.ToString().Contains('('))
+                    {
+                        processName = listBoxProcesses.SelectedItem.ToString().Split('(')[0];
+                    }
+                    else
+                    {
+                        processName = listBoxProcesses.SelectedItem.ToString();
+                    }
                     foreach (var process in Process.GetProcessesByName(processName))
                     {
                         process.Kill();
